@@ -26,15 +26,15 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   requires_compatibilities  = ["FARGATE"]
   cpu                       = 2048
   memory                    = 4096
-
+  # sounds windows X86_64 ARM64
   runtime_platform {
     operating_system_family = "LINUX"
-    cpu_architecture        = "X86_64" # sounds windows
+    cpu_architecture        = "X86_64" 
   }
 
   container_definitions     = jsonencode([
     {
-      name                  = "${var.project_name   }-container"
+      name                  = "${var.project_name}-container"
       image                 = var.container_image
       essential             = true
 

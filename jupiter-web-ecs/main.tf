@@ -76,3 +76,15 @@ module "asg" {
   ecs_cluster_name  = module.ecs.ecs_cluster_name
   ecs_service_name  = module.ecs.ecs_service_name
 }
+
+module "route-53" {
+  source  = "../modules/route-53"
+  domain_name = module.ecm.domain_name
+  record_name = var.record_name
+  alb_dns_name  = module.alb.alb_dns_name
+  alb_zone_id   = module.alb.alb_zone_id
+}
+
+output "website_url" {
+  value = join("", ["https://", var.record_name, ".", var.domain_name])
+}
